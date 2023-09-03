@@ -1,0 +1,7 @@
+.footer {
+  /* background-color: green; */
+  grid-column: 1/-1;
+  height: 2rem;
+  display: grid;
+  place-content: center;
+}

@@ -1,0 +1,37 @@
+.app {
+  height: 100svh;
+  margin: auto;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+@media (min-width: 360px) {
+  .app {
+    max-width: 360px;
+  }
+}
+
+@media (min-width: 576px) {
+  .app {
+    max-width: 576px;
+  }
+}
+
+@media (min-width: 768px) {
+  .app {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 992px) {
+  .app {
+    max-width: 992px;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .app {
+    max-width: 1200px;
+  }
+}

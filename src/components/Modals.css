@@ -1,0 +1,98 @@
+.new-list-modal,
+.delete-list-modal {
+  margin: auto;
+  border: none;
+  background-color: transparent;
+}
+
+.new-list-modal::backdrop,
+.delete-list-modal::backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.new-list-form,
+.delete-list-form {
+  background-color: #1d283a;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.modal-prompt {
+  max-width: 30ch;
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+.list-to-delete {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: goldenrod;
+}
+
+.modal-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+#new-list-name {
+  appearance: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  width: 100%;
+  background-color: rgb(var(--bg-color));
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.modal-btn {
+  flex: 1 1 0;
+  text-transform: uppercase;
+  border: 2px solid currentColor;
+  border-radius: 9999px;
+  height: 2.25rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  line-height: 1;
+  display: grid;
+  place-content: center;
+}
+
+.btn-cancel {
+  color: #fb6f84;
+  border-color: currentColor;
+}
+
+.btn-cancel:hover {
+  background-color: #fb6f84;
+  color: white;
+}
+
+.btn-create {
+  color: #f2fff0;
+  background-color: #008080;
+}
+
+.btn-create:hover {
+  color: #008080;
+  background-color: #f2fff0;
+}
+
+.btn-yes {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-yes:hover {
+  background-color: #fb6f84;
+  color: white;
+}
+
+.btn-no {
+  color: grey;
+}
+
+.btn-no:hover {
+  color: white;
+}
