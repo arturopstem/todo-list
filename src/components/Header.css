@@ -37,10 +37,6 @@ button:hover {
   align-items: center;
 }
 
-.hamburger-btn svg {
-  pointer-events: none;
-}
-
 .demo-btn {
   height: 2rem;
   font-size: 1rem;

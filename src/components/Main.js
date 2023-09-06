@@ -1,5 +1,5 @@
 import './Main.css';
-import { populateMainContent } from '../render';
+import { populateListOption, populateMainContent } from '../render';
 
 const Main = () => {
   const main = document.createElement('main');
@@ -28,8 +28,19 @@ const Main = () => {
       deleteModal.showModal();
     }
 
+    if (e.target.dataset.type === 'edit-list') {
+      const editListModal = document.querySelector('.edit-list-modal');
+      const listToRename = editListModal.querySelector('.list-to-rename');
+      const editForm = editListModal.querySelector('form');
+      editForm.dataset.list = e.target.dataset.list;
+      listToRename.textContent = e.target.dataset.list;
+      editListModal.showModal();
+    }
+
     if (e.target.dataset.type === 'add-task') {
-      console.log('launch add new task modal');
+      const newTaskModal = document.querySelector('.new-task-modal');
+      populateListOption(newTaskModal);
+      newTaskModal.showModal();
     }
   });
 

@@ -1,3 +1,4 @@
+import penToSquare from './assets/pen-to-square.svg';
 import trashCan from './assets/trash-can.svg';
 import circlePlus from './assets/circle-plus.svg';
 import Lists from './lists';
@@ -140,8 +141,11 @@ function createContent(tasks, sortBy) {
 function getContentTitleBar(textContent) {
   const sortyBy = localStorage.getItem('sortBy');
   const list = localStorage.getItem('content');
-  const deleteBtn = `
-  <button class="delete-list-btn" data-type="delete-list" data-list="${list}">${trashCan}</button>
+  const listMenu = `
+  <menu class="list-menu">
+    <button class="edit-list-btn" data-type="edit-list" data-list="${list}">${penToSquare}</button>
+    <button class="delete-list-btn" data-type="delete-list" data-list="${list}">${trashCan}</button>
+  </menu>
   `;
   const selectSort = `
   <select class="select-sort">
@@ -160,7 +164,7 @@ function getContentTitleBar(textContent) {
   const markup = `
   <div class="content-title-bar">
     <h2 class="main-content-title">${textContent}</h2>
-    ${/^List:/.test(textContent) ? deleteBtn : ''}
+    ${/^List:/.test(textContent) ? listMenu : ''}
     ${textContent === 'Lists' ? addListBtn : addTaskBtn}
     ${textContent === 'Today' || textContent === 'Lists' ? '' : selectSort}
   </div>
@@ -198,7 +202,10 @@ function createListCard(listName, tasks) {
       <li>Low: ${priorities.Low}</li>
       <li>None: ${priorities.None}</li>
     </ul>
-    <button class="delete-list-card" data-type="delete-list" data-list="${listName}">${trashCan}</button>
+    <menu class="edit-list-menu">
+      <button class="edit-list-btn" data-type="edit-list" data-list=${listName}>${penToSquare}</button>
+      <button class="delete-list-btn" data-type="delete-list" data-list="${listName}">${trashCan}</button>
+    </menu>
   </div>
   `;
 
@@ -280,4 +287,48 @@ function updateUI() {
   colorNavSelection();
 }
 
-export { populateMainContent, populateListMenu, colorNavSelection, updateUI };
+function createListOptions(lists) {
+  const currentContent = localStorage.getItem('content');
+  let markup = '';
+
+  lists.forEach((list) => {
+    markup += `<option value="${list}" ${
+      currentContent === list ? 'selected' : ''
+    }>${list}</option>`;
+  });
+
+  return markup;
+}
+
+function populateListOption(modal) {
+  const todo = new Lists();
+  const lists = Object.keys(todo.lists);
+  const listOption = modal.querySelector('.list-option');
+  listOption.replaceChildren();
+  let markup;
+
+  if (lists.length === 0) {
+    markup = `
+    <button class="add-list-btn" type="button" data-type="add-list">+ Add New List</button>
+    `;
+  } else {
+    markup = `
+    <select id="list">
+      <option value="">--Please select an option--</option>
+      ${createListOptions(lists)}
+    </select>
+    `;
+  }
+  const listOptionContent = new DOMParser().parseFromString(markup, 'text/html')
+    .body.children;
+
+  listOption.append(...listOptionContent);
+}
+
+export {
+  populateMainContent,
+  populateListMenu,
+  colorNavSelection,
+  updateUI,
+  populateListOption,
+};

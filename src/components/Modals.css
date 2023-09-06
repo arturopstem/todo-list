@@ -1,17 +1,23 @@
 .new-list-modal,
-.delete-list-modal {
+.edit-list-modal,
+.delete-list-modal,
+.new-task-modal {
   margin: auto;
   border: none;
   background-color: transparent;
 }
 
 .new-list-modal::backdrop,
-.delete-list-modal::backdrop {
+.edit-list-modal::backdrop,
+.delete-list-modal::backdrop,
+.new-task-modal::backdrop {
   backdrop-filter: blur(4px);
 }
 
 .new-list-form,
-.delete-list-form {
+.edit-list-form,
+.delete-list-form,
+.new-task-form {
   background-color: #1d283a;
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
@@ -25,6 +31,7 @@
   font-size: 1.25rem;
 }
 
+.list-to-rename,
 .list-to-delete {
   font-size: 1.5rem;
   font-weight: bold;
@@ -36,7 +43,13 @@
   gap: 1rem;
 }
 
-#new-list-name {
+.input-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+#new-list-name,
+#edit-list-name {
   appearance: none;
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
@@ -69,12 +82,14 @@
   color: white;
 }
 
-.btn-create {
+.btn-create,
+.btn-rename {
   color: #f2fff0;
   background-color: #008080;
 }
 
-.btn-create:hover {
+.btn-create:hover,
+.btn-rename:hover {
   color: #008080;
   background-color: #f2fff0;
 }
@@ -95,4 +110,34 @@
 
 .btn-no:hover {
   color: white;
+}
+
+.new-task-fields {
+  display: grid;
+  gap: 0.5rem;
+}
+
+[class|="field"] {
+  display: grid;
+  gap: 0.25rem;
+}
+
+[class|="field"] :where(input, select, textarea) {
+  background-color: rgb(var(--bg-color));
+  width: 100%;
+  font-size: 1rem;
+  resize: none;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.list-option {
+  display: grid;
+}
+
+.list-option .add-list-btn {
+  font-size: 1rem;
+  border-width: 0.125rem;
+  gap: 0;
 }
