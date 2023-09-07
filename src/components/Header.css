@@ -107,6 +107,7 @@ button:hover {
 }
 
 .add-list-btn {
+  grid-column: 1/-1;
   font-size: 1.25rem;
   line-height: 1;
   color: #73b69e;
