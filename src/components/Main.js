@@ -1,5 +1,9 @@
 import './Main.css';
-import { populateListOption, populateMainContent } from '../render';
+import {
+  populateEditTaskForm,
+  populateListOption,
+  populateMainContent,
+} from '../render';
 
 const Main = () => {
   const main = document.createElement('main');
@@ -51,6 +55,19 @@ const Main = () => {
       deleteForm.dataset.list = e.target.dataset.list;
       taskToDelete.textContent = e.target.dataset.task;
       deleteTaskModal.showModal();
+    }
+
+    if (e.target.dataset.type === 'edit-task') {
+      console.log('LAUNCH Edit Task Modal');
+      const editTaskModal = document.querySelector('.edit-task-modal');
+      const taskToEdit = editTaskModal.querySelector('.task-to-edit');
+      const editForm = editTaskModal.querySelector('form');
+      editForm.dataset.id = e.target.dataset.id;
+      editForm.dataset.list = e.target.dataset.list;
+      taskToEdit.textContent = e.target.dataset.task;
+      populateListOption(editTaskModal);
+      populateEditTaskForm(editForm);
+      editTaskModal.showModal();
     }
   });
 

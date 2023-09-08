@@ -335,10 +335,38 @@ function populateListOption(modal) {
   listOption.append(...listOptionContent);
 }
 
+function populateEditTaskForm(form) {
+  const targetList = form.dataset.list;
+  const targetId = Number(form.dataset.id);
+  const todo = new Lists();
+  const list = todo.lists[targetList];
+  const task = list.find((element) => element.id === targetId);
+  const inputFields = form.elements;
+
+  inputFields.title.value = task.title;
+  inputFields['due-date'].valueAsDate = task.dueDate;
+  [...inputFields.priority.options].forEach((option) => {
+    if (option.value === task.priority) {
+      option.setAttribute('selected', '');
+    } else {
+      option.removeAttribute('selected');
+    }
+  });
+  [...inputFields.list.options].forEach((option) => {
+    if (option.value === task.list) {
+      option.setAttribute('selected', '');
+    } else {
+      option.removeAttribute('selected');
+    }
+  });
+  inputFields.notes.value = task.notes;
+}
+
 export {
   populateMainContent,
   populateListMenu,
   colorNavSelection,
   updateUI,
   populateListOption,
+  populateEditTaskForm,
 };

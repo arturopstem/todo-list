@@ -266,10 +266,84 @@ const deleteTaskModal = () => {
   return modal;
 };
 
+const editTaskModal = () => {
+  const markup = `
+  <dialog class="edit-task-modal">
+    <form class="edit-task-form" method="dialog">
+      <div class="modal-prompt">
+        Edit task <span class="task-to-edit"></span>
+      </div>
+      <div class="edit-task-fields">
+        <div class="field-title">
+          <label for="title">Title:</label>
+          <textarea id="title"></textarea>
+        </div>
+        <div class="field-due-date">
+          <label for="due-date">Due Date:</label>
+          <input id="due-date" type="date">
+        </div>
+        <div class="field-priority">
+          <label for="priority">Priority:</label>
+          <select id="priority">
+            <option value="">--Please choose an option--</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+            <option value="None">None</option>
+          </select>
+        </div>
+        <div class="field-list">
+          <label for="list">List:</label>
+          <div class='list-option'></div>
+        </div>
+        <div class="field-notes">
+          <label for="notes">Notes:</label>
+          <textarea id="notes" rows="4"></textarea>
+        </div>
+      </div>
+      <menu class="modal-menu">
+        <button class="modal-btn btn-cancel">CANCEL</button>
+        <button class="modal-btn btn-create" type="button">CREATE</button>
+      </menu>
+    </form>
+  </dialog>
+  `;
+
+  const modal = new DOMParser()
+    .parseFromString(markup, 'text/html')
+    .querySelector('.edit-task-modal');
+
+  const form = modal.querySelector('form');
+  // const createBtn = modal.querySelector('.btn-create');
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.close();
+    }
+
+    // if (e.target === createBtn) {
+    //   if (isFormValid(form)) {
+    //     addTask(form);
+    //     modal.close();
+    //     updateUI();
+    //   } else {
+    //     console.log('CONTAINS AN INVALID INPUT FIELD');
+    //   }
+    // }
+  });
+
+  modal.addEventListener('close', () => {
+    form.reset();
+  });
+
+  return modal;
+};
+
 export {
   newListModal,
   deleteListModal,
   editListModal,
   newTaskModal,
   deleteTaskModal,
+  editTaskModal,
 };
