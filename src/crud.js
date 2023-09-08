@@ -56,4 +56,20 @@ function addTask(form) {
   localStorage.setItem('lists', JSON.stringify(todo.lists));
 }
 
-export { containsList, addNewList, renameList, deleteList, addTask };
+function deleteTask(list, id) {
+  const todo = new Lists();
+  const targetList = todo.lists[list];
+  const targetId = Number(id);
+  const taskIndex = targetList.findIndex((task) => task.id === targetId);
+  targetList.splice(taskIndex, 1);
+  localStorage.setItem('lists', JSON.stringify(todo.lists));
+}
+
+export {
+  containsList,
+  addNewList,
+  renameList,
+  deleteList,
+  addTask,
+  deleteTask,
+};

@@ -193,6 +193,23 @@
   color: red;
 }
 
+.task-menu {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.edit-task-btn,
+.delete-task-btn {
+  font-size: 2rem;
+  color: grey;
+  display: flex;
+}
+
+.delete-task-btn:hover {
+  color: red;
+}
+
 @media (min-width: 992px) {
   .main {
     grid-column: 2/3;

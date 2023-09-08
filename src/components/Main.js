@@ -42,6 +42,16 @@ const Main = () => {
       populateListOption(newTaskModal);
       newTaskModal.showModal();
     }
+
+    if (e.target.dataset.type === 'delete-task') {
+      const deleteTaskModal = document.querySelector('.delete-task-modal');
+      const taskToDelete = deleteTaskModal.querySelector('.task-to-delete');
+      const deleteForm = deleteTaskModal.querySelector('form');
+      deleteForm.dataset.id = e.target.dataset.id;
+      deleteForm.dataset.list = e.target.dataset.list;
+      taskToDelete.textContent = e.target.dataset.task;
+      deleteTaskModal.showModal();
+    }
   });
 
   main.addEventListener('input', (e) => {

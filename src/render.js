@@ -48,6 +48,16 @@ function createTaskCard(task) {
     <div class=".task-priority">Priority: ${task.priority}</div>
     <div class=".task-list">List: ${task.list}</div>
     <div class=".task-notes">Notes: ${task.notes}</div>
+    <menu class="task-menu">
+      <button class="edit-task-btn" data-type="edit-task" data-id="${
+        task.id
+      }" data-list="${task.list}" data-task="${
+        task.title
+      }">${penToSquare}</button>
+      <button class="delete-task-btn" data-type="delete-task" data-id="${
+        task.id
+      }" data-list="${task.list}" data-task="${task.title}">${trashCan}</button>
+    </menu>
   </div>
   `;
   const taskCard = new DOMParser()

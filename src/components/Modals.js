@@ -3,6 +3,7 @@ import {
   containsList,
   addNewList,
   deleteList,
+  deleteTask,
   addTask,
   renameList,
 } from '../crud';
@@ -232,4 +233,43 @@ const newTaskModal = () => {
   return modal;
 };
 
-export { newListModal, deleteListModal, editListModal, newTaskModal };
+const deleteTaskModal = () => {
+  const markup = `
+  <dialog class="delete-task-modal">
+    <form class="delete-task-form" method="dialog">
+      <div class="modal-prompt">
+      Are you sure you want to <b>delete</b> task <span class="task-to-delete"></span>?
+      </div>
+      <menu class="modal-menu">
+        <button class="modal-btn btn-no">NO</button>
+        <button class="modal-btn btn-yes" data-action="delete-task">YES</button>
+      </menu>
+    </form>
+  </dialog>
+  `;
+
+  const modal = new DOMParser()
+    .parseFromString(markup, 'text/html')
+    .querySelector('.delete-task-modal');
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.close();
+    }
+    if (e.target.dataset.action === 'delete-task') {
+      const { list, id } = e.target.form.dataset;
+      deleteTask(list, id);
+      updateUI();
+    }
+  });
+
+  return modal;
+};
+
+export {
+  newListModal,
+  deleteListModal,
+  editListModal,
+  newTaskModal,
+  deleteTaskModal,
+};

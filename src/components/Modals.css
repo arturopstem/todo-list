@@ -1,7 +1,8 @@
 .new-list-modal,
 .edit-list-modal,
 .delete-list-modal,
-.new-task-modal {
+.new-task-modal,
+.delete-task-modal {
   margin: auto;
   border: none;
   background-color: transparent;
@@ -10,14 +11,16 @@
 .new-list-modal::backdrop,
 .edit-list-modal::backdrop,
 .delete-list-modal::backdrop,
-.new-task-modal::backdrop {
+.new-task-modal::backdrop,
+.delete-task-modal {
   backdrop-filter: blur(4px);
 }
 
 .new-list-form,
 .edit-list-form,
 .delete-list-form,
-.new-task-form {
+.new-task-form,
+.delete-task-form {
   background-color: #1d283a;
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
@@ -32,7 +35,8 @@
 }
 
 .list-to-rename,
-.list-to-delete {
+.list-to-delete,
+.task-to-delete {
   font-size: 1.5rem;
   font-weight: bold;
   color: goldenrod;

@@ -1,6 +1,7 @@
 import Layout from './components/Layout';
 import {
   deleteListModal,
+  deleteTaskModal,
   editListModal,
   newListModal,
   newTaskModal,
@@ -13,6 +14,7 @@ document.body.appendChild(newListModal());
 document.body.appendChild(editListModal());
 document.body.appendChild(deleteListModal());
 document.body.appendChild(newTaskModal());
+document.body.appendChild(deleteTaskModal());
 
 if (!localStorage.getItem('sortBy')) {
   localStorage.setItem('sortBy', 'date');
