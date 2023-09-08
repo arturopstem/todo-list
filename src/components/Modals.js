@@ -303,7 +303,7 @@ const editTaskModal = () => {
       </div>
       <menu class="modal-menu">
         <button class="modal-btn btn-cancel">CANCEL</button>
-        <button class="modal-btn btn-create" type="button">CREATE</button>
+        <button class="modal-btn btn-save" type="button">SAVE</button>
       </menu>
     </form>
   </dialog>
@@ -314,22 +314,25 @@ const editTaskModal = () => {
     .querySelector('.edit-task-modal');
 
   const form = modal.querySelector('form');
-  // const createBtn = modal.querySelector('.btn-create');
+  const saveBtn = modal.querySelector('.btn-save');
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       modal.close();
     }
 
-    // if (e.target === createBtn) {
-    //   if (isFormValid(form)) {
-    //     addTask(form);
-    //     modal.close();
-    //     updateUI();
-    //   } else {
-    //     console.log('CONTAINS AN INVALID INPUT FIELD');
-    //   }
-    // }
+    if (e.target === saveBtn) {
+      if (isFormValid(form)) {
+        const targetList = form.dataset.list;
+        const targetId = Number(form.dataset.id);
+        deleteTask(targetList, targetId);
+        addTask(form);
+        modal.close();
+        updateUI();
+      } else {
+        console.log('CONTAINS AN INVALID INPUT FIELD');
+      }
+    }
   });
 
   modal.addEventListener('close', () => {

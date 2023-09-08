@@ -91,13 +91,15 @@
 }
 
 .btn-create,
-.btn-rename {
+.btn-rename,
+.btn-save {
   color: #f2fff0;
   background-color: #008080;
 }
 
 .btn-create:hover,
-.btn-rename:hover {
+.btn-rename:hover,
+.btn-save:hover {
   color: #008080;
   background-color: #f2fff0;
 }

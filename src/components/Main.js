@@ -58,7 +58,6 @@ const Main = () => {
     }
 
     if (e.target.dataset.type === 'edit-task') {
-      console.log('LAUNCH Edit Task Modal');
       const editTaskModal = document.querySelector('.edit-task-modal');
       const taskToEdit = editTaskModal.querySelector('.task-to-edit');
       const editForm = editTaskModal.querySelector('form');
