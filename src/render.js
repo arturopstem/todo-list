@@ -84,7 +84,7 @@ function createTaskCard(task) {
   return taskCard;
 }
 
-function createTasksGroup(tasks, group, heading) {
+function createTasksGroup(tasks, group, heading, state) {
   let classText;
   let headingText;
   if (heading === 'Priority') {
@@ -105,10 +105,11 @@ function createTasksGroup(tasks, group, heading) {
     .querySelector('.task-group');
   const taskCards = content.querySelector('.task-cards');
   tasks.forEach((task) => {
-    const taskCard = createTaskCard(task);
-    taskCards.appendChild(taskCard);
+    if (!task.completed || state) {
+      const taskCard = createTaskCard(task);
+      taskCards.appendChild(taskCard);
+    }
   });
-
   return content;
 }
 
@@ -129,30 +130,34 @@ function getDatesInOrder(tasksGrouped) {
   return dates;
 }
 
-function createGroups(tasksGrouped, groupedBy) {
+function createGroups(tasksGrouped, groupedBy, state = false) {
   const groups = [];
   if (groupedBy === 'priority') {
     const priorities = getPrioritiesInOrder(tasksGrouped);
     priorities.forEach((priority) => {
       const list = tasksGrouped[priority];
       Lists.sortByDate(list);
-      const tasksGroup = createTasksGroup(list, priority, 'Priority');
-      groups.push(tasksGroup);
+      if (list.some((task) => !task.completed) || state) {
+        const tasksGroup = createTasksGroup(list, priority, 'Priority', state);
+        groups.push(tasksGroup);
+      }
     });
   } else if (groupedBy === 'date') {
     const dates = getDatesInOrder(tasksGrouped);
     dates.forEach((date) => {
       const list = tasksGrouped[date];
       Lists.sortByPriority(list);
-      const tasksGroup = createTasksGroup(list, date, 'Date');
-      groups.push(tasksGroup);
+      if (list.some((task) => !task.completed) || state) {
+        const tasksGroup = createTasksGroup(list, date, 'Date', state);
+        groups.push(tasksGroup);
+      }
     });
   }
 
   return groups;
 }
 
-function createContent(tasks, sortBy) {
+function createContent(tasks, sortBy, state) {
   const groupedBy = sortBy || localStorage.getItem('sortBy');
   let tasksGrouped;
   if (groupedBy === 'priority') {
@@ -160,7 +165,7 @@ function createContent(tasks, sortBy) {
   } else if (groupedBy === 'date') {
     tasksGrouped = Lists.groupByDate(tasks);
   }
-  const groups = createGroups(tasksGrouped, groupedBy);
+  const groups = createGroups(tasksGrouped, groupedBy, state);
 
   return groups;
 }
@@ -218,11 +223,12 @@ function getPrioritiesNumbers(tasks) {
 }
 
 function createListCard(listName, tasks) {
+  const completedTasks = tasks.filter((task) => task.completed).length;
   const priorities = getPrioritiesNumbers(tasks);
   const markup = `
   <div class="list-card" data-content="${listName}">
     <div class="list-name">${listName}</div>
-    <div class="list-tasks">Tasks: ${tasks.length}</div>
+    <div class="list-tasks"><span>Tasks: ${tasks.length}</span><span>Completed: ${completedTasks}</span></div>
     <ul class="list-details">
       <li>High: ${priorities.High}</li>
       <li>Medium: ${priorities.Medium}</li>
@@ -276,6 +282,12 @@ function populateMainContent() {
     case 'This Week': {
       const tasks = todo.getThisWeeksTasks();
       content = createContent(tasks);
+      heading = contentToDisplay;
+      break;
+    }
+    case 'Completed': {
+      const tasks = todo.getAllTasks().filter((task) => task.completed);
+      content = createContent(tasks, undefined, true);
       heading = contentToDisplay;
       break;
     }

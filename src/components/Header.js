@@ -20,6 +20,7 @@ const markupHeader = `
         <li><button class="nav-bar-btn" data-content="Scheduled">Scheduled</button></li>
         <li><button class="nav-bar-btn" data-content="Today">Today</button></li>
         <li><button class="nav-bar-btn" data-content="This Week">This Week</button></li>
+        <li><button class="nav-bar-btn" data-content="Completed">Completed</button></li>
       </menu>
       <menu class="lists-menu"></menu>
       <button class="nav-bar-btn add-list-btn" data-type="add-list"><span>${plus}</span>New List</button>
