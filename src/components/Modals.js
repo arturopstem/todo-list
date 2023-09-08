@@ -305,6 +305,7 @@ const editTaskModal = () => {
         <button class="modal-btn btn-cancel">CANCEL</button>
         <button class="modal-btn btn-save" type="button">SAVE</button>
       </menu>
+      <input id="completed" type="hidden">
     </form>
   </dialog>
   `;

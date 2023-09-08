@@ -1,6 +1,8 @@
 import penToSquare from './assets/pen-to-square.svg';
 import trashCan from './assets/trash-can.svg';
 import circlePlus from './assets/circle-plus.svg';
+import toggleOn from './assets/toggle-on.svg';
+import toggleOff from './assets/toggle-off.svg';
 import Lists from './lists';
 
 function colorNavSelection() {
@@ -39,6 +41,16 @@ function populateListMenu() {
 }
 
 function createTaskCard(task) {
+  const completedIcon = `
+  <span class="completed-icon ${task.completed ? 'icon-on' : ''}">${
+    task.completed ? toggleOn : toggleOff
+  }</span>
+  `;
+  const completedText = `
+  <span class="completed-text ${
+    task.completed ? 'text-on' : ''
+  }">Completed</span>
+  `;
   const markup = `
   <div class="task-card card-${task.priority.toLowerCase()}" data-id="${
     task.id
@@ -49,6 +61,11 @@ function createTaskCard(task) {
     <div class=".task-list">List: ${task.list}</div>
     <div class=".task-notes">Notes: ${task.notes}</div>
     <menu class="task-menu">
+      <button class="task-state ${
+        task.completed ? 'task-completed' : ''
+      }" data-type="toggle-state" data-list=${task.list} data-id="${
+        task.id
+      }">${completedIcon}${completedText}</button>
       <button class="edit-task-btn" data-type="edit-task" data-id="${
         task.id
       }" data-list="${task.list}" data-task="${
@@ -360,6 +377,38 @@ function populateEditTaskForm(form) {
     }
   });
   inputFields.notes.value = task.notes;
+  inputFields.completed.value = task.completed;
+}
+
+function renderStateBtn(button) {
+  const todo = new Lists();
+  const list = todo.lists[button.dataset.list];
+  const id = Number(button.dataset.id);
+  const task = list.find((element) => element.id === id);
+
+  const completedIcon = button.querySelector('.completed-icon');
+  const completedText = button.querySelector('.completed-text');
+
+  let stateIcon;
+  completedIcon.replaceChildren();
+  if (task.completed) {
+    button.classList.add('task-completed');
+    completedIcon.classList.add('.icon-on');
+    stateIcon = toggleOn;
+    completedText.classList.add('text-on');
+    completedText.textContent = 'Completed';
+  } else {
+    button.classList.remove('task-completed');
+    completedIcon.classList.remove('.icon-on');
+    stateIcon = toggleOff;
+    completedText.classList.remove('text-on');
+    completedText.textContent = '';
+  }
+  const svgIcon = new DOMParser().parseFromString(
+    stateIcon,
+    'text/xml',
+  ).documentElement;
+  completedIcon.appendChild(svgIcon);
 }
 
 export {
@@ -369,4 +418,5 @@ export {
   updateUI,
   populateListOption,
   populateEditTaskForm,
+  renderStateBtn,
 };

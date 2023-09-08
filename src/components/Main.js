@@ -3,7 +3,9 @@ import {
   populateEditTaskForm,
   populateListOption,
   populateMainContent,
+  renderStateBtn,
 } from '../render';
+import { toggleState } from '../crud';
 
 const Main = () => {
   const main = document.createElement('main');
@@ -67,6 +69,12 @@ const Main = () => {
       populateListOption(editTaskModal);
       populateEditTaskForm(editForm);
       editTaskModal.showModal();
+    }
+
+    if (e.target.dataset.type === 'toggle-state') {
+      const { list, id } = e.target.dataset;
+      toggleState(list, id);
+      renderStateBtn(e.target);
     }
   });
 

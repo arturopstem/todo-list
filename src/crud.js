@@ -40,6 +40,11 @@ function addTask(form) {
   const list = form.elements.list.value;
   const notes = form.elements.notes.value;
   const id = Math.floor(Math.random() * Date.now());
+  const completedField = form.querySelector('#completed');
+  let completed = false;
+  if (completedField) {
+    completed = completedField === 'true';
+  }
 
   const newTask = {
     list,
@@ -49,6 +54,7 @@ function addTask(form) {
     id,
     priority,
     priorityAsNumber,
+    completed,
   };
 
   const todo = new Lists();
@@ -65,6 +71,15 @@ function deleteTask(list, id) {
   localStorage.setItem('lists', JSON.stringify(todo.lists));
 }
 
+function toggleState(list, id) {
+  const todo = new Lists();
+  const targetList = todo.lists[list];
+  const targetId = Number(id);
+  const targetTask = targetList.find((task) => task.id === targetId);
+  targetTask.completed = !targetTask.completed;
+  localStorage.setItem('lists', JSON.stringify(todo.lists));
+}
+
 export {
   containsList,
   addNewList,
@@ -72,4 +87,5 @@ export {
   deleteList,
   addTask,
   deleteTask,
+  toggleState,
 };

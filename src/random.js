@@ -40,6 +40,7 @@ function createRandomTask(list) {
   const randomPriority = new RandomPriority();
   const priority = randomPriority.level;
   const priorityAsNumber = randomPriority.levelAsNumber;
+  const completed = false;
 
   return {
     list,
@@ -49,6 +50,7 @@ function createRandomTask(list) {
     id,
     priority,
     priorityAsNumber,
+    completed,
   };
 }
 

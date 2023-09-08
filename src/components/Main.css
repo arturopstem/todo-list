@@ -196,7 +196,44 @@
 .task-menu {
   display: flex;
   justify-content: end;
+  align-items: center;
   gap: 1rem;
+}
+
+.task-state {
+  color: grey;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.task-state:hover {
+  color: #008080;
+}
+
+.task-completed {
+  color: green;
+}
+
+.completed-icon {
+  line-height: 1;
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  pointer-events: none;
+}
+
+.completed-text {
+  font-size: 1.5rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+.text-on {
+  opacity: 1;
 }
 
 .edit-task-btn,
